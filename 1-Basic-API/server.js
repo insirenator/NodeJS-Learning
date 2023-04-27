@@ -8,7 +8,7 @@ app.use(logger);
 const PORT = process.env.PORT || 5000;
 
 app.get('/', (req, res) => {
-    res.send('HOME PAGE!');
+    res.send('<h1>My API</h1><h3>Routes : </h3><p>/api/products</p><p>/api/products/:id</p><p>/api/products?search=foo&limit=4</p>');
 });
 
 app.get('/api/products',  (req, res) => {
