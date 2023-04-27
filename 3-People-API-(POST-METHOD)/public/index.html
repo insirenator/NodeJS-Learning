@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>People API</title>
+</head>
+<body>
+    <h1 id="title">FORM</h1>
+    <form class="form">
+        <input type="text" name="name" class="field" placeholder="Enter Name" autocomplete="false">
+        <button type="submit" class="btn">Submit</button>
+    </form>
+    <div class="result"></div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const result = document.querySelector('.result');
+
+        const fetchPeople = async () => {
+            try {
+                const {data} = await axios.get('/api/people');
+                const people = data.data.map((person) => {
+                    return `<h5>${person.name}</h5>`
+                });
+                result.innerHTML = people.join('');
+
+            } catch (error) {
+                result.innerHTML = '<div class="error">Can\'t Fetch Data</div>'
+            }
+        };
+        fetchPeople();
+        //Submit form
+        const btn = document.querySelector('.btn');
+        const input = document.querySelector('.field');
+
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault()
+            const nameValue = input.value;
+
+            try {
+                const {data} = await axios.post('/api/people', {name: nameValue});
+                const h5 = document.createElement('h5');
+                h5.textContent = data.person;
+                result.appendChild(h5)
+            } catch(error) {
+                console.log(error.response.data.msg);
+            }
+
+            input.value = '';
+        });
+
+    </script>
+</body>
+</html>
