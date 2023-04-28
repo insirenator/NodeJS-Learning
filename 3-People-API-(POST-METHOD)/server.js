@@ -11,6 +11,16 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
+app.post('/login', (req, res) => {
+    const { name } = req.body;
+
+    if(name) {
+        res.status(200).send(`Welcome, ${name}`);
+    } else {
+        res.status(401).send('Please provide credentials.');
+    }
+});
+
 app.get('/api/people', (req, res) => {
     res.status(200).send({response: true, data: people});
 });
@@ -28,14 +38,20 @@ app.post('/api/people', (req, res) => {
     }
 });
 
-app.post('/login', (req, res) => {
-    const { name } = req.body;
 
-    if(name) {
-        res.status(200).send(`Welcome, ${name}`);
-    } else {
-        res.status(401).send('Please provide credentials.');
-    }
+app.put('/api/people/:id', (req, res) => {
+    const {id} = req.params;
+    const {name} = req.body;
+
+    console.log(id, name);
+
+    res.status(200).json({response: true, data: [id, name]});
+});
+
+app.delete('/api/people/:id', (req, res) => {
+    const { id } = req.params;
+
+    res.json({deleted: true, id: id});
 });
 
 app.listen(PORT, () => {
