@@ -6,7 +6,7 @@ const errorHandlerMiddleware = require('./middlewares/error-handler');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.static('./public/'));
 app.use(express.json());
@@ -18,8 +18,8 @@ app.use(errorHandlerMiddleware);
 const start = async () => { 
     try {
         await connectDB(process.env.MONGO_URI);
-        app.listen(PORT, () => {
-            console.log('Serving at Port ' + PORT + '...');
+        app.listen(port, () => {
+            console.log('Serving at Port ' + port + '...');
         });
     } catch (err) {
         console.log(err);
