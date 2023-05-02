@@ -1,0 +1,11 @@
+* {
+    font-family: "Segoe UI", sans-serif;
+}
+
+.highlight {
+    border: 0.005rem solid rgb(111, 110, 110);
+    padding: 3px 5px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    margin-right: 10px;
+}
