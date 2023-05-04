@@ -4,6 +4,9 @@ const registerForm = document.querySelector('#register-form');
 const loginLink = document.querySelector('#login-link');
 const registerLink = document.querySelector('#register-link');
 
+const loginError = document.querySelector('.login-error');
+const registerError = document.querySelector('.register-error');
+
 // Hide Register Form
 registerForm.style.display = 'none';
 
@@ -17,11 +20,37 @@ registerLink.addEventListener('click', () => {
     loginForm.style.display = 'none';
 });
 
-
-loginForm.addEventListener('submit', (event) => {
+// Logic for Login
+loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    const formData = new FormData(loginForm);
+    const credentials = Object.fromEntries([...formData.entries()]);
+    // console.log(credentials);
+
+    try {
+        const response = await axios.post('/api/v1/users/login', credentials);
+        // console.log(response);
+    } catch (error) {
+        // console.log(error.response);
+        loginError.textContent = error.response.data.msg;
+        setTimeout(() => loginError.textContent = '', 3000);
+    }
+    //console.log('hello login');
 });
 
-registerForm.addEventListener('submit', (event) => {
+registerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    const formData = new FormData(registerForm);
+    const userInfo = Object.fromEntries([...formData.entries()]);
+    // console.log(userInfo);
+
+    try {
+        const { data } = await axios.post('/api/v1/users/register', userInfo);
+        // console.log(data);
+    } catch (error) {
+        // console.log(error.response);
+        registerError.textContent = 'fill out all fields';
+        setTimeout(() => registerError.textContent = '', 3000)
+    }
 });

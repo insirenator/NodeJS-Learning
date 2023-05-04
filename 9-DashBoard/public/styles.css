@@ -102,3 +102,11 @@ main {
 .redirect {
     align-self: center;
 }
+
+.error {
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+    align-self: center;
+    text-transform: capitalize;
+}
