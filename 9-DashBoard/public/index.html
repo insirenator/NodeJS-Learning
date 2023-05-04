@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <main>
+        <!-- LOGIN FORM -->
+        <form class="form" id="login-form">
+            <h5>Login</h5>
+            <div class="field">
+                <label for="username">Username</label>
+                <input type="text" class="input">
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" class="input">
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div class="redirect">Not Registered? <span class="highlight" id="register-link">Register</span></div>
+        </form>
+
+        <!-- <div class="or">OR</div> -->
+
+        <!-- REGISTRATION FORM -->
+        <form class="form" id="register-form">
+            <h5>Register</h5>
+            <div class="field">
+                <label for="first-name">First Name</label>
+                <input type="text" class="input">
+            </div>
+            <div class="field">
+                <label for="last-name">Last Name</label>
+                <input type="text" class="input">
+            </div>
+            <div class="field">
+                <label for="username">Username</label>
+                <input type="text" class="input">
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" class="input">
+            </div>
+            <button type="submit" class="btn">Register</button>
+            <div class="redirect">Already Registered? <span class="highlight" id="login-link">Login</span></div>
+        </form>
+    </main>
+    <script src="./index.js"></script>
+</body>
+</html>
