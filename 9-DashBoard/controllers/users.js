@@ -36,7 +36,7 @@ const loginUser = async (req, res) => {
 
         // Generate token
         const id = Date.now()
-        const token = jwt.sign({id, username}, process.env.JWT_SECRET, {expiresIn: '30d'});
+        const token = jwt.sign({id, username}, process.env.JWT_SECRET, {expiresIn: '1d'});
 
         // res.setHeader('Authorization', `Bearer ${token}`);
         // return res.redirect(301, '/dashboard');
@@ -60,7 +60,26 @@ const loginUser = async (req, res) => {
     // res.status(200).json({msg: 'LOGIN', user: req.body});
 }
 
+const verifyUser = async (req, res) => {
+    const authHeader = req.headers.authorization; 
+
+    if (!authHeader || !authHeader.startsWith('Bearer')) {
+        return res.status(401).json({success:false});
+    }
+
+    const token = authHeader.split(' ')[1];
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return res.status(200).json({success:true});
+
+    } catch (error) {
+        return res.status(401).json({success:false});
+    }
+}
+
 module.exports = {
     registerUser,
     loginUser,
+    verifyUser,
 }

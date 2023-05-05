@@ -1,21 +1,28 @@
 const loginSection = document.querySelector('.login-section');
 const dashboard = document.querySelector('.dashboard');
 
-window.addEventListener('DOMContentLoaded', () => {
-    const token = sessionStorage.getItem('token');
+window.addEventListener('DOMContentLoaded', async () => {
+    const token = localStorage.getItem('token');
 
-    if(!token) {
-        dashboard.style.display = 'none';
-        loginSection.style.display = 'flex';
-    } else {
+    try {
+        const { data } = await axios.get('/api/v1/users/verify', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        console.log(data);
         loginSection.style.display = 'none';
         dashboard.style.display = 'flex';
+    } catch (error) {
+        dashboard.style.display = 'none';
+        loginSection.style.display = 'flex';
+        console.log(error.response);
     }
 });
 
 const getProductsBtn = document.querySelector('#get-products-btn');
 getProductsBtn.addEventListener('click', async () => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const { data } = await axios.get('/api/v1/products', {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -44,3 +51,10 @@ const getHTML = (product) => {
     </div>
     `
 } 
+
+const logoutBtn = document.querySelector('#logout-btn');
+
+logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location = '/';
+});

@@ -51,7 +51,7 @@ main {
     text-align: center;
 }
 
-.login-section > a, #get-products-btn {
+.login-section > a, #get-products-btn, #logout-btn {
     margin-top: 40px;
     background-color: rgb(13, 253, 173);
     padding: 10px 15px;
@@ -85,9 +85,16 @@ main {
     cursor: pointer;
 }
 
-#get-products-btn:active {
+#get-products-btn:active, #logout-btn:active {
     box-shadow: none;
     transform: scale(0.95);
+}
+
+#logout-btn {
+    border: none;
+    background-color: rgb(255, 93, 78);
+    color: white;
+    cursor: pointer;
 }
 
 #products-info {
