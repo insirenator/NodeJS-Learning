@@ -10,11 +10,15 @@ const notFoundMiddleware = require('./errors/not-found');
 
 app.use(express.static('./public/'));
 app.use(express.json());
+
+app.set('views', './src/views');
+app.set('view engine', 'ejs');
+
 const port = process.env.PORT || 8000;
 
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/products', productsRouter);
-app.use(notFoundMiddleware)
+app.use(notFoundMiddleware);
 
 
 const start = async () => {

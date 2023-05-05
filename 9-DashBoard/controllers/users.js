@@ -38,6 +38,9 @@ const loginUser = async (req, res) => {
         const id = Date.now()
         const token = jwt.sign({id, username}, process.env.JWT_SECRET, {expiresIn: '30d'});
 
+        // res.setHeader('Authorization', `Bearer ${token}`);
+        // return res.redirect(301, '/dashboard');
+
         return res.status(200).json({
             success:true, 
             msg: 'login successful', 

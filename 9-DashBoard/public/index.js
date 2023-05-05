@@ -1,56 +1,46 @@
-const loginForm = document.querySelector('#login-form');
-const registerForm = document.querySelector('#register-form');
+const loginSection = document.querySelector('.login-section');
+const dashboard = document.querySelector('.dashboard');
 
-const loginLink = document.querySelector('#login-link');
-const registerLink = document.querySelector('#register-link');
+window.addEventListener('DOMContentLoaded', () => {
+    const token = sessionStorage.getItem('token');
 
-const loginError = document.querySelector('.login-error');
-const registerError = document.querySelector('.register-error');
-
-// Hide Register Form
-registerForm.style.display = 'none';
-
-loginLink.addEventListener('click', () => {
-    registerForm.style.display = 'none';
-    loginForm.style.display = 'flex';
-});
-
-registerLink.addEventListener('click', () => {
-    registerForm.style.display = 'flex';
-    loginForm.style.display = 'none';
-});
-
-// Logic for Login
-loginForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(loginForm);
-    const credentials = Object.fromEntries([...formData.entries()]);
-    // console.log(credentials);
-
-    try {
-        const response = await axios.post('/api/v1/users/login', credentials);
-        // console.log(response);
-    } catch (error) {
-        // console.log(error.response);
-        loginError.textContent = error.response.data.msg;
-        setTimeout(() => loginError.textContent = '', 3000);
-    }
-    //console.log('hello login');
-});
-
-registerForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const formData = new FormData(registerForm);
-    const userInfo = Object.fromEntries([...formData.entries()]);
-    // console.log(userInfo);
-
-    try {
-        const { data } = await axios.post('/api/v1/users/register', userInfo);
-        // console.log(data);
-    } catch (error) {
-        // console.log(error.response);
-        registerError.textContent = 'fill out all fields';
-        setTimeout(() => registerError.textContent = '', 3000)
+    if(!token) {
+        dashboard.style.display = 'none';
+        loginSection.style.display = 'flex';
+    } else {
+        loginSection.style.display = 'none';
+        dashboard.style.display = 'flex';
     }
 });
+
+const getProductsBtn = document.querySelector('#get-products-btn');
+getProductsBtn.addEventListener('click', async () => {
+    const token = sessionStorage.getItem('token');
+    const { data } = await axios.get('/api/v1/products', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    console.log(data);
+    displayProducts(data.products.data);
+});
+
+const displayProducts = (products) => {
+    console.log(products);
+    const productsInfo = document.querySelector('#products-info');
+    productsInfo.innerHTML = '';
+
+    products.forEach((product, idx) => {
+        productsInfo.innerHTML += getHTML(product);
+    });
+}
+
+const getHTML = (product) => {
+    return `
+    <div class="product">
+        <p class="product-name">${product.name}</p>
+        <p class="product-price">${product.price}$</p>
+    </div>
+    `
+} 

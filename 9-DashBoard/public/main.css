@@ -24,6 +24,7 @@ header > h1 {
     letter-spacing: -3px;
     text-shadow: 2px 2px 5px black;
     margin-right: 250px;
+    line-height: 0.8;
 }
 
 header > h3 {
@@ -32,19 +33,25 @@ header > h3 {
 
 main {
     padding: 50px 30px;
-    height: 70vh;
+    min-height: 70vh;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-section{
+    display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-main > p {
+.login-section > p {
     font-size: 26px;
     text-align: center;
 }
 
-main > a {
+.login-section > a, #get-products-btn {
     margin-top: 40px;
     background-color: rgb(13, 253, 173);
     padding: 10px 15px;
@@ -55,13 +62,63 @@ main > a {
     transition: all ease-in-out 0.1s;
 }
 
-main > a:hover {
+.login-section > a:hover {
     border-radius: 12px;
-    box-shadow: 0 0 6px rgba(0,0,0,0.6);
+    box-shadow: 0 0 4px rgba(0,0,0,0.6);
 }
 
-main > a:active {
+.login-section > a:active {
     box-shadow: none;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
+#get-products-btn {
+    border: none;
+    color: white;
+    background-color: rgb(3, 118, 219);
+    cursor: pointer;
+}
+
+#get-products-btn:active {
+    box-shadow: none;
+    transform: scale(0.95);
+}
+
+#products-info {
+    /* border: 1px solid black; */
+    width: min(600px, 100%);
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    /* border: 1px solid black; */
+    padding: 5px 10px;
+    margin: 20px 0;
+    border-bottom: 2px solid rgb(195, 193, 193);
+}
+
+.product-name {
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 10px;
+
+}
+
+.product-price {
+    margin-left: auto;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 footer {

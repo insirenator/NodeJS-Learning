@@ -13,11 +13,25 @@
         <h3><em>The best place to buy all the stuff you need!</em></h3>
     </header>
     <main>
-        <p>Login to see all the products.</p>
-        <a id="login-link" href="./login.html">Login</a>
+        <div class="login-section">
+            <p>Login to see all the products.</p>
+            <a id="login-link" href="./login.html">Login</a>
+        </div>
+        <div class="dashboard">
+            <h1>Dashboard</h1>
+            <button id="get-products-btn">Get All Products</button>
+            <div id="products-info"></div>
+        </div>
     </main>
     <footer>
         Copyright 2023, MyStore, Inc
     </footer>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./index.js"></script>
 </body>
 </html>
