@@ -31,7 +31,7 @@ loginForm.addEventListener('submit', async (event) => {
     try {
         const { data } = await axios.post('/api/v1/users/login', credentials);
         console.log(data.token);
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('userContext', JSON.stringify({user: data.user, token: data.token}));
         window.location = '/';
     } catch (error) {
         // console.log(error.response);

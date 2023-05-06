@@ -75,8 +75,33 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 100%;
+    /* border: 1px solid black; */
 }
+
+.dashboard > h1 {
+    font-size: 22px;
+    margin: 0 10px;
+    color: rgb(179, 178, 178);  
+}
+
+.top-bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 2px solid rgb(211, 211, 211);
+    padding: 10px;
+    padding-bottom: 25px;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.top-bar > h1 {
+    font-size: 18px;
+    color: grey;
+}
+
+
 
 #get-products-btn {
     border: none;
@@ -95,6 +120,8 @@ main {
     background-color: rgb(255, 93, 78);
     color: white;
     cursor: pointer;
+    margin: 0;
+    margin-left: auto;
 }
 
 #products-info {

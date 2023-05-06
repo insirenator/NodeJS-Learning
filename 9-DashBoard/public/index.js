@@ -1,16 +1,22 @@
 const loginSection = document.querySelector('.login-section');
 const dashboard = document.querySelector('.dashboard');
+const productsInfo = document.querySelector('#products-info');
+
+const userName = document.querySelector('#user-name');
 
 window.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('token');
+    const userContext = JSON.parse(localStorage.getItem('userContext'));
 
     try {
+        const token = userContext.token;
         const { data } = await axios.get('/api/v1/users/verify', {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
-        console.log(data);
+
+        const username = `${userContext.user.firstname} ${userContext.user.lastname}`;
+        userName.textContent = username;
         loginSection.style.display = 'none';
         dashboard.style.display = 'flex';
     } catch (error) {
@@ -22,20 +28,23 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 const getProductsBtn = document.querySelector('#get-products-btn');
 getProductsBtn.addEventListener('click', async () => {
-    const token = localStorage.getItem('token');
-    const { data } = await axios.get('/api/v1/products', {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
-    console.log(data);
-    displayProducts(data.products.data);
+    if(getProductsBtn.textContent === 'Get All Products') {
+        const userContext = JSON.parse(localStorage.getItem('userContext'));
+        const { data } = await axios.get('/api/v1/products', {
+            headers: {
+                Authorization: `Bearer ${userContext.token}`,
+            },
+        });
+        // console.log(data);
+        displayProducts(data.products.data);
+        getProductsBtn.textContent = 'Clear';
+    } else {
+        productsInfo.innerHTML = '';
+        getProductsBtn.textContent = 'Get All Products';
+    }
 });
 
 const displayProducts = (products) => {
-    console.log(products);
-    const productsInfo = document.querySelector('#products-info');
     productsInfo.innerHTML = '';
 
     products.forEach((product, idx) => {
@@ -55,6 +64,6 @@ const getHTML = (product) => {
 const logoutBtn = document.querySelector('#logout-btn');
 
 logoutBtn.addEventListener('click', () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('userContext');
     window.location = '/';
 });
