@@ -27,6 +27,7 @@ const dashboard = (req, res) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log(decoded);
         const luckyNumber = Math.floor(Math.random()*100);
         res.status(200).json({msg: `Hello ${decoded.username}`, secret: `Authorised Data: Your lucky number is ${luckyNumber}`} );
     } catch (error) {

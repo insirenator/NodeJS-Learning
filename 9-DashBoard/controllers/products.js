@@ -21,7 +21,7 @@ const getAllProducts = async (req, res) => {
     }
 
     try { 
-        const data = await Product.find({}).limit(10);
+        const data = await Product.find({}).limit(20);
         response.success = true;
         response.products = { nbHits: data.length, data};
         return res.status(200).json(response);
